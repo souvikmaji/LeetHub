@@ -1,10 +1,4 @@
-/* Enum for languages supported by GeeksForGeeks. */
-// const gfgLanguages = {
-//   Python3: '.py',
-//   'C++': '.cpp',
-//   Java: '.java',
-//   Javascript: '.js',
-// };
+const languages = require('./languages.js');
 
 /* Commit messages */
 const README_MSG = 'Create README - LeetHub';

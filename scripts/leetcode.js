@@ -1,25 +1,4 @@
-/* Enum for languages supported by LeetCode. */
-const languages = {
-  Python: '.py',
-  Python3: '.py',
-  'C++': '.cpp',
-  C: '.c',
-  Java: '.java',
-  'C#': '.cs',
-  JavaScript: '.js',
-  Javascript: '.js',
-  Ruby: '.rb',
-  Swift: '.swift',
-  Go: '.go',
-  Kotlin: '.kt',
-  Scala: '.scala',
-  Rust: '.rs',
-  PHP: '.php',
-  TypeScript: '.ts',
-  MySQL: '.sql',
-  'MS SQL Server': '.sql',
-  Oracle: '.sql',
-};
+const languages = require('./languages.js');
 
 /* Commit messages */
 const readmeMsg = 'Create README - LeetHub';
