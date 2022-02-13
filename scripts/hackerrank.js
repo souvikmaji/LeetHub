@@ -1,11 +1,12 @@
-const languages = require('./languages.js');
+/* Enum for languages supported by GeeksForGeeks. */
+// const gfgLanguages = {
+//   Python3: '.py',
+//   'C++': '.cpp',
+//   Java: '.java',
+//   Javascript: '.js',
+// };
 
-/* Commit messages */
-const README_MSG = 'Create README - LeetHub';
-const SUBMIT_MSG = 'Added solution - LeetHub';
-const UPDATE_MSG = 'Updated solution - LeetHub';
-
-const APP_NAME = 'GFG';
+const APP_NAME = 'HackerRank';
 let START_MONITOR = true;
 
 const toKebabCase = (string) => {
@@ -16,9 +17,10 @@ const toKebabCase = (string) => {
     .toLowerCase(); // convert to lower case
 };
 
-function findGfgLanguage() {
-  const ele = document.getElementsByClassName('filter-option')[0]
-    .innerText;
+function getLanguage() {
+  const ele = document.getElementsByClassName('select-language')[0]
+  .innerText;
+
   let lang = ele.split('(')[0].trim();
   if (lang.length > 0 && languages[lang]) {
     return languages[lang];
@@ -36,17 +38,16 @@ function findTitle() {
 }
 
 function findDifficulty() {
-  const ele = document.getElementsByClassName(
-    'problem-tab__problem-level',
-  )[0].innerText;
+  const difficultyBlocks = document.getElementsByClassName(
+    'difficulty-block',
+  );
 
-  if (ele != null) {
-    if (ele.trim() == 'Basic' || ele.trim() === 'School') {
-      return 'Easy';
+  Array.prototype.forEach.call(difficultyBlocks, (el) => {
+    if (el.innerText.startsWith('Difficulty')) {
+      return el.innerText.substring('Difficulty\n'.length + 1);
     }
-    return ele;
-  }
-  return '';
+    return '';
+  });
 }
 
 function getProblemStatement() {
@@ -93,7 +94,7 @@ function getCode() {
   return text ? text : '';
 }
 
-const gfgLoader = setInterval(() => {
+const hackerrankLoader = setInterval(() => {
   let code = null;
   let problemStatement = null;
   let title = null;
@@ -101,8 +102,8 @@ const gfgLoader = setInterval(() => {
   let difficulty = null;
 
   if (
-    window.location.href.includes(
-      'practice.geeksforgeeks.org/problems',
+    window.location.href.startsWith(
+      'https://www.hackerrank.com/challenges',
     )
   ) {
     let submitBtn = document.getElementById('run');
@@ -119,17 +120,17 @@ const gfgLoader = setInterval(() => {
         ) {
           // clear timeout
           START_MONITOR = false;
-          clearInterval(gfgLoader);
+          clearInterval(hackerrankLoader);
           clearInterval(submission);
           // get data
           title = findTitle().trim();
           difficulty = findDifficulty();
           problemStatement = getProblemStatement();
           code = getCode();
-          language = findGfgLanguage();
+          language = getLanguage();
 
           // format data
-          let probName = `${title} - ${APP_NAME}`;
+          let probName = `${title}-${APP_NAME}`;
 
           problemStatement =
             `# ${title}\n## ${difficulty}\n` + problemStatement;
